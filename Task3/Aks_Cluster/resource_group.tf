@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg" {
 #Route Table Configuration
 
 resource "azurerm_route_table" "route_table" {
-  name                          = "acceptanceTestSecurityGroup1"
+  name                          = "routetable1"
   location                      = azurerm_resource_group.rg.location
   resource_group_name           = azurerm_resource_group.rg.name
   disable_bgp_route_propagation = false
