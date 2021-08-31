@@ -44,9 +44,31 @@ resource "azurerm_network_interface" "nwinterface" {
   }
 }
 
+#Route Table Configuration
+
+resource "azurerm_route_table" "aks-routetable" {
+  name                = var.route_table_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  route {
+    name                   = var.route_name
+    address_prefix         = var.route_cidr
+    next_hop_type          = var.route_hop_type
+    next_hop_in_ip_address = "10.10.1.1"
+  }
+}
+
+#Subnet and Route Table Association
+
+resource "azurerm_subnet_route_table_association" "route_table_assoc" {
+  subnet_id      = azurerm_subnet.snet.id
+  route_table_id = azurerm_route_table.aks-routetable.id
+}
+
 #Subnet and NSG Association
 
-resource "azurerm_subnet_network_security_group_association" "sec_grp_asso" {
+resource "azurerm_subnet_network_security_group_association" "sec_grp_assoc" {
   subnet_id                 = azurerm_subnet.snet.id
   network_security_group_id = azurerm_network_security_group.mysecgrp.id
 }

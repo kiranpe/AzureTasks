@@ -16,10 +16,46 @@ variable "random_num" {
   default     = 10
 }
 
-variable "spcl_char" {
-  description = "Specail charecters in string. true or false"
+variable "enable" {
+  description = "Use it in true condition"
+  type        = bool
+  default     = true
+}
+
+variable "disable" {
+  description = "Use this in false condition"
   type        = bool
   default     = false
+}
+
+variable "log_analytics_name" {
+  description = "Log Analytics Name"
+  type        = string
+  default     = "aks-loganalytics"
+}
+
+variable "log_analytics_sku" {
+  description = "Log Analytics sku"
+  type        = string
+  default     = "PerGB2018"
+}
+
+variable "log_analytics_retention_days" {
+  description = "Number of days to retention logs"
+  type        = number
+  default     = 30
+}
+
+variable "key_vault_retention_days" {
+  description = "key valut soft delete retention days"
+  type        = number
+  default     = 7
+}
+
+variable "monitor_diagnostics_name" {
+  description = "Name of the monitoring diagnostics"
+  type        = string
+  default     = "monitor_diagnostics"
 }
 
 variable "sa_acc_tier" {
@@ -54,7 +90,8 @@ variable "sec_ingress" {
 
   default = [
     # [name, priority, direction, access, protocol, destination_port_ranges, source_address_prefix, destination_address_prefix]
-    ["AllowLinuxSSHInbound", "100", "Inbound", "Allow", "Tcp", "22", "*", "*"],
+    ["LinuxSSHInbound", "110", "Inbound", "Allow", "Tcp", "22", "*", "*"],
+    ["K8SInbound", "100", "Inbound", "Allow", "Tcp", "0-65535", "*", "*"]
   ]
 }
 
@@ -69,7 +106,7 @@ variable "vnet_name" {
 variable "vnet_cidr" {
   description = "Virtual Network CIDR Block"
   type        = list(string)
-  default     = ["10.0.0.0/16"]
+  default     = ["10.30.0.0/16"]
 }
 
 variable "snet_name" {
@@ -81,7 +118,31 @@ variable "snet_name" {
 variable "snet_cidr" {
   description = "Subnet CIDR Block"
   type        = list(string)
-  default     = ["10.0.2.0/24"]
+  default     = ["10.30.1.0/24"]
+}
+
+variable "route_table_name" {
+  description = "AKS Route Table Name"
+  type        = string
+  default     = "aks-routetable"
+}
+
+variable "route_name" {
+  description = "Route Name"
+  type        = string
+  default     = "aksroutetable"
+}
+
+variable "route_cidr" {
+  description = "Route CIDR Block"
+  type        = string
+  default     = "10.100.0.0/14"
+}
+
+variable "route_hop_type" {
+  description = "Route Hop Type"
+  type        = string
+  default     = "VirtualAppliance"
 }
 
 variable "ip_name" {
