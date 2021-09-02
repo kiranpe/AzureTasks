@@ -1,9 +1,10 @@
 #Create RG,NSG and VNET From Azure Cloud Shell
+-----------------------------------------------
 
---> Create RG first using resource group tf file
+--> First create RG using resource group tf file
 
---> Now define datasource with RG 
+--> Now create datasource file using tf file
 
---> Now create NSG and VNet 
+--> Create NSG and VNet from Azure CloudShell using tf files
 
---> Now Run Local Module from your local Machine
+--> Now Run LocalModule from your Machine to Create VM
