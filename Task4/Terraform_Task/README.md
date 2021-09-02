@@ -1,5 +1,5 @@
-#Create RG,NSG and VNET From Azure Cloud Shell
------------------------------------------------
+#Create RG,NSG, VNET From Azure Cloud Shell and Launch VM using LocalModule
+---------------------------------------------------------------------------
 
 --> First create RG using resource group tf file
 
