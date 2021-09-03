@@ -1,0 +1,31 @@
+- name: Create Users and Groups and add Users to respective groups
+  hosts: localhost
+  become: yes
+  gather_facts: no
+
+  vars:
+   group_names: ["students", "wheel", "operator"]
+   gids: [2020, 2021, 2022]
+   users: ["user1", "user2", "user3", "user4", "user5"]
+   uids: [1040, 1050, 1060, 1070, 1080]
+
+  tasks:
+   - name: Create Groups on host
+     group:
+       name: "{{ item.0 }}"
+       state: present
+       gid: "{{ item.1 }}"
+     with_together:
+       - "{{ group_names }}"
+       - "{{ gids }}"
+
+   - name: Create Users with Groups
+     user:
+       name: "{{ item.0 }}"
+       state: present
+       uid: "{{ item.1 }}"
+       groups: "{{ group_names }}"
+       shell: /bin/csh
+     with_together:
+       - "{{ users }}"
+       - "{{ uids }}"
