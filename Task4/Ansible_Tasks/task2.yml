@@ -4,7 +4,11 @@
   gather_facts: no
 
   vars: 
-   folders: ["/home/user1/Lab1", "/home/user1/Lab2", "/home/user1/Lab3", "/home/user1/Lab4", "/home/user1/Lab5", "/home/user1/Lab6", "/home/user2/Lab1", "/home/user2/Lab2", "/home/user2/Lab3", "/home/user2/Lab4", "/home/user2/Lab5", "/home/user2/Lab6", "/home/user3/Lab1", "/home/user3/Lab2", "/home/user3/Lab3", "/home/user3/Lab4", "/home/user3/Lab5", "/home/user3/Lab6", "/home/user4/Lab1", "/home/user4/Lab2", "/home/user4/Lab3", "/home/user4/Lab4", "/home/user4/Lab5", "/home/user4/Lab6", "/home/user5/Lab1", "/home/user5/Lab2", "/home/user5/Lab3", "/home/user5/Lab4", "/home/user5/Lab5", "/home/user5/Lab6"]
+   folders: ["/home/user1/Lab1", "/home/user1/Lab2", "/home/user1/Lab3", "/home/user1/Lab4", "/home/user1/Lab5", "/home/user1/Lab6",
+             "/home/user2/Lab1", "/home/user2/Lab2", "/home/user2/Lab3", "/home/user2/Lab4", "/home/user2/Lab5", "/home/user2/Lab6",
+             "/home/user3/Lab1", "/home/user3/Lab2", "/home/user3/Lab3", "/home/user3/Lab4", "/home/user3/Lab5", "/home/user3/Lab6",
+             "/home/user4/Lab1", "/home/user4/Lab2", "/home/user4/Lab3", "/home/user4/Lab4", "/home/user4/Lab5", "/home/user4/Lab6",
+             "/home/user5/Lab1", "/home/user5/Lab2", "/home/user5/Lab3", "/home/user5/Lab4", "/home/user5/Lab5", "/home/user5/Lab6"]
 
    user1: ["/home/user1/Lab1", "/home/user1/Lab2", "/home/user1/Lab3", "/home/user1/Lab4", "/home/user1/Lab5", "/home/user1/Lab6"]
    user2: ["/home/user2/Lab1", "/home/user2/Lab2", "/home/user2/Lab3", "/home/user2/Lab4", "/home/user2/Lab5", "/home/user2/Lab6"]
