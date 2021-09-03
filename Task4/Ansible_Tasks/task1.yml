@@ -1,5 +1,5 @@
 - name: Create Users and Groups and add Users to respective groups
-  hosts: localhost
+  hosts: remotehost
   become: yes
   gather_facts: no
 

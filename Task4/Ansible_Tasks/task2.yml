@@ -1,0 +1,64 @@
+- name: Create Folders in Users
+  hosts: remotehost
+  become: yes
+  gather_facts: no
+
+  vars: 
+   folders: ["/home/user1/Lab1", "/home/user1/Lab2", "/home/user1/Lab3", "/home/user1/Lab4", "/home/user1/Lab5", "/home/user1/Lab6", "/home/user2/Lab1", "/home/user2/Lab2", "/home/user2/Lab3", "/home/user2/Lab4", "/home/user2/Lab5", "/home/user2/Lab6", "/home/user3/Lab1", "/home/user3/Lab2", "/home/user3/Lab3", "/home/user3/Lab4", "/home/user3/Lab5", "/home/user3/Lab6", "/home/user4/Lab1", "/home/user4/Lab2", "/home/user4/Lab3", "/home/user4/Lab4", "/home/user4/Lab5", "/home/user4/Lab6", "/home/user5/Lab1", "/home/user5/Lab2", "/home/user5/Lab3", "/home/user5/Lab4", "/home/user5/Lab5", "/home/user5/Lab6"]
+
+   user1: ["/home/user1/Lab1", "/home/user1/Lab2", "/home/user1/Lab3", "/home/user1/Lab4", "/home/user1/Lab5", "/home/user1/Lab6"]
+   user2: ["/home/user2/Lab1", "/home/user2/Lab2", "/home/user2/Lab3", "/home/user2/Lab4", "/home/user2/Lab5", "/home/user2/Lab6"]
+   user3: ["/home/user3/Lab1", "/home/user3/Lab2", "/home/user3/Lab3", "/home/user3/Lab4", "/home/user3/Lab5", "/home/user3/Lab6"]
+   user4: ["/home/user4/Lab1", "/home/user4/Lab2", "/home/user4/Lab3", "/home/user4/Lab4", "/home/user4/Lab5", "/home/user4/Lab6"]
+   user5: ["/home/user5/Lab1", "/home/user5/Lab2", "/home/user5/Lab3", "/home/user5/Lab4", "/home/user5/Lab5", "/home/user5/Lab6"]
+
+   files: ["Lab1.pdf", "Lab2.pdf", "Lab3.pdf", "Lab4.pdf", "Lab5.pdf", "Lab6.pdf"]
+
+  tasks:
+   - name: Create folders inside users folders
+     file:
+      path: "{{ item }}"
+      state: directory 
+      mode: "0755"
+     with_items:
+       - "{{ folders }}"
+
+   - name: copy pdf files to user1 respective folders
+     copy:
+      src: "pdf_files/{{ item[1] }}"
+      dest: "{{ item[0] }}"
+     with_together:
+      - "{{ user1 }}"
+      - "{{ files }}"
+
+   - name: copy pdf files to user2 respective folders
+     copy:
+      src: "pdf_files/{{ item[1] }}"
+      dest: "{{ item[0] }}"
+     with_together:
+      - "{{ user2 }}"
+      - "{{ files }}"
+
+   - name: copy pdf files to user3 respective folders
+     copy:
+      src: "pdf_files/{{ item[1] }}"
+      dest: "{{ item[0] }}"
+     with_together:
+      - "{{ user3 }}"
+      - "{{ files }}"
+
+   - name: copy pdf files to user4 respective folders
+     copy:
+      src: "pdf_files/{{ item[1] }}"
+      dest: "{{ item[0] }}"
+     with_together:
+      - "{{ user4 }}"
+      - "{{ files }}"
+
+   - name: copy pdf files to user5 respective folders
+     copy:
+      src: "pdf_files/{{ item[1] }}"
+      dest: "{{ item[0] }}"
+     with_together:
+      - "{{ user5 }}"
+      - "{{ files }}"
