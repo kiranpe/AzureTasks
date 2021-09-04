@@ -1,0 +1,47 @@
+- name: Checkout from Git and Create tarball on local server
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+  - name: Checkout from Git
+    git:
+     repo: 'https://github.com/kiranpe/checkout.git'
+     dest: proddepo
+  
+  - name: Create tar ball
+    archive: 
+      path: proddepo
+      dest: proddepo.tar.bz2
+      exclude_path:
+      - prodrepo/.git
+      - prodrepo/README.md
+      - prodrepo/.gitignore
+
+- name: Push tarball to Prod server and Run Script
+  hosts: remotehost
+  become: no
+  gather_facts: no
+  
+  tasks:
+  - name: Push tarball to remote server
+    copy: 
+     src: proddepo.tar.bz2
+     dest: /home/ubuntu
+
+  - name: Unarchive tarball
+    unarchive:
+     src: /home/ubuntu/proddepo.tar.bz2
+     dest: /home/ubuntu
+     remote_src: yes
+
+  - name: Giving excute permissions to Script
+    file:
+     path: /home/ubuntu/proddepo/prodscript.sh
+     mode: '0755' 
+      
+  - name: Run Prod deployment script
+    shell: /home/ubuntu/proddepo/prodscript.sh
+    register: result
+
+  - debug: msg={{ result.stdout }}
