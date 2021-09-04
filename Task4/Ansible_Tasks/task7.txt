@@ -1,0 +1,12 @@
+#Execute adhoc command
+
+#Folder
+ansible remotehost -a 'mv /home/ubuntu/playbook /home/ubuntu/myplaybook' -i inventory
+
+#File
+ansible remotehost -a 'mv /home/ubuntu/myplaybook/motd-facts.j2 /home/ubuntu/myplaybook/motd-facts-new.j2' -i inventory
+
+#Inventory file
+
+[remotehost]
+ubuntu@52.14.11.224
