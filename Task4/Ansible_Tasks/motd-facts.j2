@@ -1,0 +1,7 @@
+hostname: {{ ansible_hostname }}.
+Distribution: {{ ansible_distribution }} {{ ansible_distribution_version}}
+Architecture: {{ ansible_architecture }}
+Process Details: {{ ansible_processor }}
+Processor count: {{ ansible_processor_count }}
+Total Memory: {{ ansible_memory_mb.real.total }}
+Free Memory: {{ ansible_memory_mb.real.used }}
