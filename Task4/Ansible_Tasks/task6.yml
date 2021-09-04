@@ -11,12 +11,12 @@
   
   - name: Create tar ball
     archive: 
-      path: proddepo
+      path: proddepo/*
       dest: proddepo.tar.bz2
       exclude_path:
-      - prodrepo/.git
-      - prodrepo/README.md
-      - prodrepo/.gitignore
+      - ./prodrepo/.git
+      - ./prodrepo/README.md
+      - ./prodrepo/.gitignore
 
 - name: Push tarball to Prod server and Run Script
   hosts: remotehost
@@ -29,10 +29,16 @@
      src: proddepo.tar.bz2
      dest: /home/ubuntu
 
+  - name: Create Unarchive folder on remote server
+    file:
+     path: /home/ubuntu/proddepo
+     state: directory
+     mode: '0755'
+
   - name: Unarchive tarball
     unarchive:
      src: /home/ubuntu/proddepo.tar.bz2
-     dest: /home/ubuntu
+     dest: /home/ubuntu/proddepo
      remote_src: yes
 
   - name: Giving excute permissions to Script
