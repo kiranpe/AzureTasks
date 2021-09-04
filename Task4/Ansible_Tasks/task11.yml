@@ -1,0 +1,9 @@
+- name: Pass Host Variable through cmd line
+  hosts: "{{ node }}"
+  become: yes
+  gather_facts: no
+
+
+  tasks:
+  - name: create folder
+    shell: mkdir /home/ubuntu/kiran 
