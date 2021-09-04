@@ -1,0 +1,10 @@
+- name: Remove Files and Folders 
+  hosts: remotehost
+  become: no
+  gather_facts: no
+
+  tasks:
+  - name: Remove folder recursively
+    file:
+     path: "/home/ubuntu/{{ folder}}"
+     state: absent
