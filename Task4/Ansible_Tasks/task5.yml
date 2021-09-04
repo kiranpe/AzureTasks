@@ -1,0 +1,11 @@
+- name: Create a Directory in Debian System
+  hosts: remotehost
+  become: yes
+  gather_facts: no
+
+  tasks:
+  - name: Create a www directory under /srv
+    file:
+     path: "/srv/www"
+     state: directory
+     mode: 0755
