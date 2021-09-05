@@ -1,0 +1,57 @@
+- name: Jail User Task
+  hosts: remotehost
+  become: yes
+
+  tasks:
+  - include_vars: vars.yml
+
+  - name: Create chroot directory
+    file:
+     path: "{{ ssh_chroot_jail_path }}/{{ item }}"
+     state: directory
+     mode: '0755'
+     recurse: "{{ ssh_chroot_jail_dirs_recurse }}"
+    with_items: "{{ ssh_chroot_jail_dirs }}"
+
+  - name: Ensure jail devices exist.
+    command: mknod -m 0666 {{ ssh_chroot_jail_path }}/dev/{{ item.dev }} {{ item.type | default('c') }} {{ item.major }} {{ item.minor }}
+    args:
+      creates: "{{ ssh_chroot_jail_path }}/dev/{{ item.dev }}"
+    with_items: "{{ ssh_chroot_jail_devs }}"
+
+  - name: Ensure l2chroot is installed.
+    template:
+     src: "{{ ssh_chroot_l2chroot_template }}"
+     dest: "{{ ssh_chroot_l2chroot_path }}"
+     mode: 0755
+
+  - name: Create directories in chroot
+    file:
+     path: "{{ item }}"
+     state: directory
+     mode: '0755'
+    loop:
+     - /var/jail/lib/x86_64-linux-gnu
+     - /var/jail/lib64
+
+  - name: Ensure binaries are copied into the jail.
+    copy:
+      src: "{{ item.bin | default(item) }}"
+      dest: "{{ ssh_chroot_jail_path }}{{ item.bin | default(item) }}"
+      remote_src: true
+      mode: "{{ item.mode | default('0755') }}"
+    with_items: "{{ ssh_chroot_bins }}"
+
+  - name: Ensure SSHD config contains jail configuration.
+    blockinfile:
+      path: /etc/ssh/sshd_config
+      block: "{{ ssh_chroot_sshd_chroot_jail_config }}"
+      insertafter: EOF
+  
+  - name: restart ssh daemon
+    service:
+      name: "{{ ssh_daemon }}"
+      state: restarted
+
+  - include_tasks: jail-user.yml
+    with_items: "{{ ssh_chroot_jail_users }}"

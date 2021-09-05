@@ -1,0 +1,42 @@
+- name: Ensure Jail group exists
+  group:
+    name: "{{ ssh_chroot_jail_group_name }}"
+    state: present
+
+- name: Ensure jailed user exists.
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
+    groups: "{{ item.groups | default(omit) }}"
+    append: true
+    shell: "{{ item.shell | default(omit) }}"
+    home: "{{ item.home | default(omit) }}"
+    createhome: "{{ item.createhome | default(omit) }}"
+  with_items: "{{ ssh_chroot_jail_users }}"
+  register: user_task
+
+- name: Ensure jailed user has a homedir inside the jail (if configured).
+  file:
+    path: "{{ ssh_chroot_jail_path }}{{ item.home }}"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0755
+  when: item.home is defined
+
+- name: Ensure account skeleton files are copied into jailed user's home.
+  command: "cp -r -n /etc/skel/. {{ ssh_chroot_jail_path }}{{ item.home }}"
+  args:
+    warn: false
+
+- name: copy ssh-chroot-jail extra items
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ssh_chroot_jail_path }}{{ item }}"
+    remote_src: true
+  with_items: "{{ ssh_chroot_copy_extra_items }}"
+
+- name: add binary libs via l2chroot
+  command: "{{ ssh_chroot_l2chroot_path }} {{ item.bin | default(item) }}"
+  when: item.l2chroot is not defined or item.l2chroot
+  with_items: "{{ ssh_chroot_bins }}"
