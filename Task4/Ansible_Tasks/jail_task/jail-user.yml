@@ -10,7 +10,7 @@
     groups: "{{ item.groups | default(omit) }}"
     append: true
     shell: "{{ item.shell | default(omit) }}"
-    home: "{{ item.home | default(omit) }}"
+    home: "{{ item.home }}/{{ item.name }}"
     createhome: "{{ item.createhome | default(omit) }}"
   with_items: "{{ ssh_chroot_jail_users }}"
   register: user_task

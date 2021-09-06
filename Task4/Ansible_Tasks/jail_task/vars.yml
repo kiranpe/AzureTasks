@@ -3,12 +3,7 @@ ssh_chroot_jail_path: /var/jail
 ssh_chroot_jail_group_name: ssh_jailed
 
 ssh_chroot_jail_users: 
-  - name: kp369d 
-    home: /home/kp369d
-    password: Mypa$$w0rd
-    shell: /bin/bash
-    group: ssh_jailed
-    createhome: no
+  - { name: "user1", home: "/home", password: "Mypa$$w0rd", shell: "/bin/bash", groups: "ssh_jailed", createhome: "yes" }
 
 ssh_chroot_jail_dirs:
   - bin
@@ -75,7 +70,7 @@ ssh_chroot_copy_extra_items:
   - /etc/nsswitch.conf
 
 ssh_chroot_sshd_chroot_jail_config: |
-   Match user {{ ssh_chroot_jail_group_name }}
+   Match group {{ ssh_chroot_jail_group_name }}
       ChrootDirectory {{ ssh_chroot_jail_path }}
       X11Forwarding no
       AllowTcpForwarding no
