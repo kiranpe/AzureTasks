@@ -3,8 +3,17 @@
   become: yes
   gather_facts: no
 
+  vars:
+   pwd: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters,digits,hexdigits') }}"
+
   tasks:
+  - set_fact:
+        my_pass: "{{ pwd }}"
+
+  - debug:
+        msg: "{{ my_pass }}"
+
   - name: Create kiran user
     user:
-     name: kiran
-     password: MyPassw0rd
+     name: kp369d
+     password: "{{ my_pass }}"
