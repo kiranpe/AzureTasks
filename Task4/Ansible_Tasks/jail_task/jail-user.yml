@@ -17,12 +17,11 @@
 
 - name: Ensure jailed user has a homedir inside the jail (if configured).
   file:
-    path: "{{ ssh_chroot_jail_path }}{{ item.home }}"
+    path: "{{ ssh_chroot_jail_path }}{{ item.home }}/{{ item.name }}"
     state: directory
     owner: "{{ item.name }}"
     group: "{{ item.name }}"
     mode: 0755
-  when: item.home is defined
 
 - name: Ensure account skeleton files are copied into jailed user's home.
   command: "cp -r -n /etc/skel/. {{ ssh_chroot_jail_path }}{{ item.home }}"
