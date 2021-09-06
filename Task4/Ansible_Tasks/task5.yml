@@ -1,7 +1,6 @@
 - name: Create a Directory in Debian System
-  hosts: remotehost
+  hosts: localhost
   become: yes
-  gather_facts: no
 
   tasks:
   - name: Create a www directory under /srv
@@ -9,3 +8,4 @@
      path: "/srv/www"
      state: directory
      mode: 0755
+    when: ansible_facts['os_family'] == "Debian"
