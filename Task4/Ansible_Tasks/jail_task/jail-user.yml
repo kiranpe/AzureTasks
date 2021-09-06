@@ -49,12 +49,14 @@
     mode: 0755
 
 - name: Create authorized key file
-  command: touch  "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
+  file: 
+   path: "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
+   state: touch
+   owner: "{{ item.name }}"
+   group: "{{ item.name }}"
+   mode: 0600
 
-- name: Change permissions
-  command: chmod 600 "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
-
-- name: setting up key to SSh
+- name: setting up key to access server directly from local
   authorized_key:
     user: "{{ item.name }}"
     state: present
