@@ -54,7 +54,7 @@
 - name: Change permissions
   command: chmod 600 "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
 
-- name: setting up key to access server directly from local
+- name: setting up key to SSh
   authorized_key:
     user: "{{ item.name }}"
     state: present
