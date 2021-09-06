@@ -17,3 +17,4 @@
     user:
      name: kp369d
      password: "{{ my_pass }}"
+     update_password: on_create
