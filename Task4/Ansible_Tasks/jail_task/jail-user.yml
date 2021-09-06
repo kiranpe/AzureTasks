@@ -39,3 +39,23 @@
   command: "{{ ssh_chroot_l2chroot_path }} {{ item.bin | default(item) }}"
   when: item.l2chroot is not defined or item.l2chroot
   with_items: "{{ ssh_chroot_bins }}"
+
+- name: Create User folder
+  file:
+    path: "{{ item.home }}/{{ item.name }}/.ssh"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0755
+
+- name: Create authorized key file
+  command: touch  "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
+
+- name: Change permissions
+  command: chmod 600 "{{ item.home }}/{{ item.name }}/.ssh/authorized_keys"
+
+- name: setting up key to access server directly from local
+  authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
