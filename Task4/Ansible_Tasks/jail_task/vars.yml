@@ -29,27 +29,11 @@ ssh_chroot_bins:
   - /bin/ls
   - /bin/rm
   - /bin/cat
-  - /bin/grep
-  - /bin/sed
-  - /bin/chmod
-  - /bin/chown
-  - /usr/bin/tail
-  - /usr/bin/head
-  - /usr/bin/awk
-  - /usr/bin/wc
-  - /usr/bin/sort
-  - /usr/bin/uniq
-  - /usr/bin/cut
-  - /usr/bin/scp
-  - /usr/bin/tee
-  - /usr/bin/touch
+  - /bin/date
   - /usr/bin/vim
   - /usr/bin/vi
   - /usr/bin/free
-  - /usr/bin/top
-  - /usr/bin/id
   - /usr/bin/whoami
-  - /usr/bin/groups
 
 ssh_chroot_l2chroot_template: l2chroot.j2
 ssh_chroot_l2chroot_path: /usr/local/bin/l2chroot
@@ -64,9 +48,9 @@ ssh_chroot_copy_extra_items:
 
 ssh_chroot_sshd_chroot_jail_config: |
    Match group {{ ssh_chroot_jail_group_name }}
-      ChrootDirectory {{ ssh_chroot_jail_path }}
-      X11Forwarding no
-      AllowTcpForwarding no
+   ChrootDirectory {{ ssh_chroot_jail_path }}
+   X11Forwarding no
+   AllowTcpForwarding no
 
 ssh_chroot_jail_dirs_recurse: true
 
