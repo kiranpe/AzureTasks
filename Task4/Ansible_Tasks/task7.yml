@@ -1,0 +1,16 @@
+- name: Rename File using file module
+  hosts: remotehost
+  become: yes
+  gather_facts: no
+
+  tasks:  
+   - name: Rename File on remotehost
+     file:
+       src: "/opt/testing/dummy.txt"
+       dest: "/opt/testing/new-dummy.txt"
+       state: hard
+
+   - name: Remove old file
+     file:
+       path: "/opt/testing/dummy.txt"
+       state: absent
