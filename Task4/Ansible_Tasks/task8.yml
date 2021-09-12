@@ -1,6 +1,7 @@
 - name: Gathering Ansible Pre-Defined Variables
   hosts: remotehost
+  
   tasks:
-    - template: src=nice-facts.j2 dest=nice_json.out
-
-    - fetch: src=nice_json.out dest=facts_json/json.out
+    - name: Print all available facts
+      debug:
+        var: ansible_facts
