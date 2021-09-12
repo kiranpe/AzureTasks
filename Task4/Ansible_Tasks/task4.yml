@@ -1,8 +1,8 @@
 - name: Fill motd file with host data
-  hosts: localhost
+  hosts: remotehost
   become: true
   tasks:
     - template:
         src: motd-facts.j2
-        dest: /etc/motd
-        mode: 0644
+        dest: "/etc/motd"
+        mode: 0755
