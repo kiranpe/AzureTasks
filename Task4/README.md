@@ -67,3 +67,6 @@ Find a way to pass variable to ansible playbook in the command line?
 
 Ansible Lab 12
 Write a playbook to delete files and folders inside a directory?
+
+Note: Solution is in word document
+----
