@@ -9,3 +9,6 @@ Azure Cli -https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-c
 ARM Template - https://azure.microsoft.com/en-in/resources/templates/
 
 https://docs.microsoft.com/en-us/learn/paths/evolve-your-devops-practices/
+
+Note: Solution is in word document
+----
