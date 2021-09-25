@@ -1,2 +1,2 @@
-This Folder is for Azure Tasks and Solutions for them
+This Folder is for DevOps Tasks and Solutions for them
 ------------------------------------------------------
