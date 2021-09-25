@@ -7,5 +7,4 @@
 5. Deploy WebApp in App Server
 6. Access Url with <url>/swagger/index.html
 7. Check Data is fetching from DB or Not
-
     Solution is in word document
