@@ -1,14 +1,23 @@
 Terraform Task:
 
 Provisioning an Azure VM with Terraform Modules
+
 Logging in to the Microsoft Azure Portal
+
 Starting an Azure Cloud Shell
+
 Initializing Terraform with the Azure Provider
+
 Setting Up a Data Source to Reference the Lab Resource Group
+
 Using a VNet Module from the Terraform Registry
+
 Using a Security Module from the Terraform Registry
+
 Creating a Local Module for Provisioning Azure VMs
+
 Provisioning an Azure VM with the Local Terraform Module
+
 Validate Provisioning an Azure VM with Terraform Modules
 
 Ansible Task List
