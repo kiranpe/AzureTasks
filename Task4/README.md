@@ -100,5 +100,5 @@ Ansible Lab 12:
 
 Write a playbook to delete files and folders inside a directory?
 
-Note: Solution is in word document
+Note: Solution is in word document and yaml files are in folders
 ----
